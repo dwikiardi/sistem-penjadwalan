@@ -11,6 +11,7 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiVuejs,
+  mdiReceiptTextClock 
 } from '@mdi/js'
 import { MenuAsideItem } from './interfaces'
 
@@ -19,6 +20,11 @@ const menuAside: MenuAsideItem[] = [
     href: '/dashboard',
     icon: mdiMonitor,
     label: 'Dashboard',
+  },
+  {
+    href: '/jadwal/jadwal',
+    icon: mdiReceiptTextClock,
+    label: 'Jadwal',
   },
   {
     href: '/tables',
