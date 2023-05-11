@@ -28,7 +28,7 @@ export default function CardBox({
   onClick,
 }: Props) {
   const componentClass = [
-    'bg-white flex overflow-y-auto',
+    'bg-white flex overflow-y-auto scrollbar-none',
     className,
     rounded,
     flex,

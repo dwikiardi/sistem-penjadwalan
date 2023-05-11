@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { store } from '../stores/store'
 import { Provider } from 'react-redux'
 import '../css/main.css'
+import { SessionProvider } from 'next-auth/react'
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -16,13 +17,13 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps:{session, ...pageProps} }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page)
 
-  const title = `Admin One React Tailwind free`
+  const title = `PT. XYZ`
 
-  const description = 'Admin One - free React Next Tailwind dashboard with TypeScript and dark mode'
+  const description = 'PT.XYZ - LOLO'
 
   const url = 'https://justboil.github.io/admin-one-react-tailwind/'
 
@@ -33,6 +34,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const imageHeight = '960'
 
   return (
+  <SessionProvider session={session}>
     <Provider store={store}>
       {getLayout(
         <>
@@ -71,11 +73,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               gtag('config', 'UA-130795909-1');
             `}
           </Script>
-
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </>
       )}
     </Provider>
+  </SessionProvider>
   )
 }
 

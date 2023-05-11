@@ -13,24 +13,33 @@ import { useAppDispatch, useAppSelector } from '../stores/hooks'
 import FormField from '../components/FormField'
 import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 type Props = {
   children: ReactNode
 }
 
 export default function LayoutAuthenticated({ children }: Props) {
-  const dispatch = useAppDispatch()
+
+  const { status , data: session } = useSession()
+  console.log(status)
 
   useEffect(() => {
-    dispatch(
-      setUser({
-        name: 'John Doe',
-        email: 'john@example.com',
-        avatar:
-          'https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93',
-      })
-    )
-  })
+    if(status === "unauthenticated") router.push('/login')
+  }, [status])
+
+  const dispatch = useAppDispatch()
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setUser({
+  //       name: 'John Doe',
+  //       email: 'john@example.com',
+  //       avatar:
+  //         'https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93',
+  //     })
+  //   )
+  // })
 
   const darkMode = useAppSelector((state) => state.style.darkMode)
 
