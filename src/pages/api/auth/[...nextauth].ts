@@ -7,22 +7,27 @@ export default NextAuth({
     },
     providers: [
         CredentialsProvider({
-          name: 'Credentials',
+          type: 'credentials',
+          // name: 'Credentials',
           credentials: {
-            username: { label: "Email", type: "email", placeholder: "jsmith@test.com" },
-            password: { label: "Password", type: "password" }
+            // username: { label: "Email", type: "email", placeholder: "jsmith@test.com" },
+            // password: { label: "Password", type: "password" }
           },
-          authorize: (credentials) => {
+          authorize: (credentials, req) => {
+            const {username, password} = credentials as {
+              username : string;
+              password : string;
+            }
             // Add logic here to authorize the user
             // const user = { id: 1, name: "John Doe", email: "john.doe@example.com" };
-            if (credentials.username === 'dwiki' && credentials.password === 'test') {
+            if (username === 'dwiki' && password === 'test') {
               return {
                 id: '1',
                 name: 'dwiki ardi',
                 email: 'dwiki@test.com'
               };
             } else {
-              return null;
+              throw new Error('Invalid Email / Password');
             }
           },
         }),
